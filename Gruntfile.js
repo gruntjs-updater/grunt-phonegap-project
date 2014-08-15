@@ -10,12 +10,24 @@
 /**
  *
  * TODO
- * require "phonegap"
- * phonegap create tmp any.any.any Any
- * cordova platform add android
- * cordova build
  *
- * https://build.phonegap.com
+ * TASK
+ * * phonegap create tmp any.any.any Any
+ * * cordova platform add android
+ * * cordova build
+ * * https://build.phonegap.com
+ * * validation verision "3.1.0"
+ * ± error message with arguments
+ *
+ * README.md
+ * * build with grunt link to plugins
+ * * require "phonegap"
+ *
+ * grunt
+ * * update grunt-contrib-clean
+ *
+ * perhaps
+ * * formular to set config
  *
  */
 
