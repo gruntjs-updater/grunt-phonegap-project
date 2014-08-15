@@ -56,7 +56,7 @@ Type: `Number`<br />
 Changed in `./platforms/android/AndroidManifest.xml` after `task.create`.
 
 #### version
-Type: `String`, Default no edit file and used cordova normaly version `0.0.1`<br />
+Type: `String`<br />
 Change the version in the config.xml
 
 #### copyConfigXml
@@ -181,7 +181,8 @@ grunt.registerTask('phonegap: build app', ['phonegap_project:build']);
 
 ##### 2014-08-15 v0.1.4
 * update version
-* update readme.md
+* update readme.md (version, require)
+* update travis (delete node v10.0, delete 'grunt clean files' is no spezific phonegap task)
 
 ##### 2014-08-14 v0.1.3
 * update grunt to 0.4.5

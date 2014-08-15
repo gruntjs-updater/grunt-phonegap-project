@@ -211,9 +211,10 @@ module.exports = function(grunt) {
                 // BUGFIX: "cordova platform" need an exist folder
                 grunt.file.mkdir(options.path);
 
-                // cordova create <folder> <bundleid> <title>
+                // phonegap create <folder> <bundleid> <title>
                 grunt.util.spawn({
-                    cmd: 'cordova',
+                    // cmd: 'cordova', // todo - check
+                    cmd: 'phonegap',
                     args: [
                         'create',
                         options.path,

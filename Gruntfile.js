@@ -16,8 +16,9 @@
  * * cordova platform add android
  * * cordova build
  * * https://build.phonegap.com
- * * validation verision "3.1.0"
+ * * validation variable version e.g. "3.1.0"
  * ± error message with arguments
+ * * variable copyConfigXml - think no need , check
  *
  * README.md
  * * build with grunt link to plugins
