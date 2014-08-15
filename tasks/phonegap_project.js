@@ -72,16 +72,16 @@ module.exports = function(grunt) {
             // options.copyConfigXml = _.isBoolean(options.copyConfigXml) ? options.copyConfigXml : false; // todo delete
 
             var dataVersion = _.isString(options.version) && options.version.length > 0 ? options.version : null,
-                file = options.path + '/config.xml',
-                file_www = options.path + '/www/config.xml',
+                file_www_config_xml = options.path + '/www/config.xml', // todo have rename variables - delete todo
+                // file_www = options.path + '/www/config.xml', // todo delete
                 fileSource;
 
-            if (grunt.file.isFile(file)) {
+            if (grunt.file.isFile(file_www_config_xml)) {
 
                 // change version
                 if (dataVersion) {
-                    fileSource = grunt.file.read(file);
-                    grunt.file.write(file, fileSource.replace(/version\=\"[0-9\.]+"/, 'version="' + dataVersion + '"'));
+                    fileSource = grunt.file.read(file_www_config_xml);
+                    grunt.file.write(file_www_config_xml, fileSource.replace(/version\=\"[0-9\.]+"/, 'version="' + dataVersion + '"'));
                 }
 
 
@@ -89,13 +89,13 @@ module.exports = function(grunt) {
 
                     // delete default access
                     if (index === 0) {
-                        fileSource = grunt.file.read(file);
-                        grunt.file.write(file, fileSource.replace(/<access\ origin\=\"\*\"\ \/\>/, ''));
+                        fileSource = grunt.file.read(file_www);
+                        grunt.file.write(file_www_config_xml, fileSource.replace(/<access\ origin\=\"\*\"\ \/\>/, ''));
                     }
 
                     // create new access
-                    fileSource = grunt.file.read(file);
-                    grunt.file.write(file, fileSource.replace(/<\/widget\>/, '\t<access origin="' + url + '" />\n<\/widget>'));
+                    fileSource = grunt.file.read(file_www_config_xml);
+                    grunt.file.write(file_www_config_xml, fileSource.replace(/<\/widget\>/, '\t<access origin="' + url + '" />\n<\/widget>'));
                 });
 
                 /*
@@ -112,7 +112,7 @@ module.exports = function(grunt) {
                 */
 
             } else {
-                grunt.log.warn(getMessage('fileNoExists') + file);
+                grunt.log.warn(getMessage('fileNoExists') + file_www_config_xml);
                 done(false);
             }
         }

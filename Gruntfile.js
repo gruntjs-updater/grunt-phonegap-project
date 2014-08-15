@@ -31,10 +31,11 @@
  * * androidTargetSdk delete
  *
  * README.md
- * done - * build with grunt link to plugins
+ * done - * build with grunt, link to plugins
  * done - * require "phonegap"
  * done - * update version
  * update Release History
+ * update description
  *
  * grunt
  * * update grunt-contrib-clean
