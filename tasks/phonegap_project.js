@@ -204,18 +204,21 @@ module.exports = function(grunt) {
          */
         function create(data) {
             data = _.isObject(data) ? data : {};
-            data.isUserRmDir = _.isBoolean(data.deleteOptionsPath) ? data.deleteOptionsPath : false;
+            data.deleteOptionsPath = _.isBoolean(data.deleteOptionsPath) ? data.deleteOptionsPath : false;
 
-            if (data.isUserRmDir) {
+            if (data.deleteOptionsPath) {
 
                 // delete old app
                 if (grunt.file.exists(options.path)) {
                     grunt.file.delete(options.path, { force: true });
                 }
 
+                /*
+                todo delete
                 // create new folder
                 // BUGFIX: "cordova platform" need an exist folder
-                grunt.file.mkdir(options.path);
+                //grunt.file.mkdir(options.path);
+                 */
 
                 // phonegap create <folder> <bundleid> <title>
                 grunt.util.spawn({

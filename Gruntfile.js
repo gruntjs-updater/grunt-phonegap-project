@@ -24,11 +24,11 @@
  * * ERROR >> The file no exists: phoneGapProject/config.xml
  * * is in folder www
  * done - no need copy
- * * version ok - check
+ * done - version ok - check
  * * access ok - check
  * * any idea for icons & screen
- * * androidMinSdk other regex
- * * androidTargetSdk delete
+ * * androidMinSdk other regex - <preference name="android-minSdkVersion" value="7" />
+ * done - androidTargetSdk delete
  *
  * README.md
  * done - * build with grunt, link to plugins
@@ -120,7 +120,7 @@ module.exports = function(grunt) {
             options: {
                 //path: 'newapp',
                 androidMinSdk: 20,
-                androidTargetSdk: 30,
+                // androidTargetSdk: 30, // todo delete
                 version: "2.3.4"
                 // copyConfigXml: true // todo delete
             },
