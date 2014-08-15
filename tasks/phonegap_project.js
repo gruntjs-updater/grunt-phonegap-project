@@ -22,7 +22,7 @@ module.exports = function(grunt) {
 
         var done = this.async(),
             UNDEFINED_ANDROID_MIN_SDK = -1,
-            UNDEFINED_ANDROID_TARGET_SDK = -1,
+            //UNDEFINED_ANDROID_TARGET_SDK = -1, // todo delete
             isAndroidPlatformAdded = false,
             fileAndroidManifest = '/platforms/android/AndroidManifest.xml',
 
@@ -32,7 +32,7 @@ module.exports = function(grunt) {
                 bundleId: 'de.myylinks.myyapp',
                 path: 'phoneGapProject',
                 androidMinSdk: UNDEFINED_ANDROID_MIN_SDK,
-                androidTargetSdk: UNDEFINED_ANDROID_TARGET_SDK,
+                // androidTargetSdk: UNDEFINED_ANDROID_TARGET_SDK, // todo delete
                 version: false
                 //copyConfigXml: false // todo delete
             });
@@ -89,7 +89,7 @@ module.exports = function(grunt) {
 
                     // delete default access
                     if (index === 0) {
-                        fileSource = grunt.file.read(file_www);
+                        fileSource = grunt.file.read(file_www_config_xml);
                         grunt.file.write(file_www_config_xml, fileSource.replace(/<access\ origin\=\"\*\"\ \/\>/, ''));
                     }
 
@@ -118,7 +118,7 @@ module.exports = function(grunt) {
         }
 
         /**
-         * This replace "androidMinsSdk" and "androidTargetSdk", when installed Android and exists "AndroidManifest.xml"
+         * Replace "androidMinsSdk"
          *
          * @method replaceAndroidSdk
          */
@@ -127,8 +127,8 @@ module.exports = function(grunt) {
                 fileSource = grunt.file.read(filePath),
                 fileReplace = '',
                 isFileChanged = false,
-                minSdkExp = /minSdkVersion\=\"[0-9]+\"/,
-                targetSdkExp = /targetSdkVersion\=\"[0-9]+\"/;
+                minSdkExp = /minSdkVersion\=\"[0-9]+\"/;
+                //targetSdkExp = /targetSdkVersion\=\"[0-9]+\"/; // too delete
 
             // check filePath is exists, already check in addPlatforms(), but check again
             if (grunt.file.isFile(options.path + '/' + fileAndroidManifest)) {
@@ -140,6 +140,8 @@ module.exports = function(grunt) {
                     isFileChanged = true;
                 }
 
+                /*
+                todo delete
                 // search 'android:targetSdkVersion="xx"'
                 if (fileSource.match(targetSdkExp) && options.androidTargetSdk !== UNDEFINED_ANDROID_TARGET_SDK) {
                     fileReplace = 'targetSdkVersion="' + options.androidTargetSdk + '"';
@@ -150,6 +152,7 @@ module.exports = function(grunt) {
                     }
                     grunt.file.write(filePath, fileSource.replace(targetSdkExp, fileReplace));
                 }
+                */
             }
         }
 

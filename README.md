@@ -30,8 +30,8 @@ grunt.loadNpmTasks('grunt-phonegap-project');
 #### Platform SDK
 To add support or rebuild a project for any platform, you need from the same machine that [supports the platform's SDK](http://docs.phonegap.com/en/edge/guide_cli_index.md.html).
 
-#### NodeJS
-[NodeJS](http://nodejs.org/) version 11.0
+#### npm
+[NodeJS](http://nodejs.org/) Version 11.0
 
 #### PhoneGap
 ```

@@ -23,7 +23,7 @@
  * * variable copyConfigXml - think no need, check
  * * ERROR >> The file no exists: phoneGapProject/config.xml
  * * is in folder www
- * * no need copy
+ * done - no need copy
  * * version ok - check
  * * access ok - check
  * * any idea for icons & screen
