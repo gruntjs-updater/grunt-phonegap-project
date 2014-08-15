@@ -18,11 +18,23 @@
  * * https://build.phonegap.com
  * * validation variable version e.g. "3.1.0"
  * ± error message with arguments
- * * variable copyConfigXml - think no need , check
+ *
+ * config.xml
+ * * variable copyConfigXml - think no need, check
+ * * ERROR >> The file no exists: phoneGapProject/config.xml
+ * * is in folder www
+ * * no need copy
+ * * version ok - check
+ * * access ok - check
+ * * any idea for icons & screen
+ * * androidMinSdk other regex
+ * * androidTargetSdk delete
  *
  * README.md
- * * build with grunt link to plugins
- * * require "phonegap"
+ * done - * build with grunt link to plugins
+ * done - * require "phonegap"
+ * done - * update version
+ * update Release History
  *
  * grunt
  * * update grunt-contrib-clean
@@ -108,8 +120,8 @@ module.exports = function(grunt) {
                 //path: 'newapp',
                 androidMinSdk: 20,
                 androidTargetSdk: 30,
-                version: "2.3.4",
-                copyConfigXml: true
+                version: "2.3.4"
+                // copyConfigXml: true // todo delete
             },
             create: {
                 title: 'NewApp',

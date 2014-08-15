@@ -33,8 +33,8 @@ module.exports = function(grunt) {
                 path: 'phoneGapProject',
                 androidMinSdk: UNDEFINED_ANDROID_MIN_SDK,
                 androidTargetSdk: UNDEFINED_ANDROID_TARGET_SDK,
-                version: false,
-                copyConfigXml: false
+                version: false
+                //copyConfigXml: false // todo delete
             });
 
         /**
@@ -69,7 +69,7 @@ module.exports = function(grunt) {
         function editConfigXml(data) {
             data = _.isObject(data) ? data : {};
             data.access = _.isArray(data.access) ? data.access : [];
-            options.copyConfigXml = _.isBoolean(options.copyConfigXml) ? options.copyConfigXml : false;
+            // options.copyConfigXml = _.isBoolean(options.copyConfigXml) ? options.copyConfigXml : false; // todo delete
 
             var dataVersion = _.isString(options.version) && options.version.length > 0 ? options.version : null,
                 file = options.path + '/config.xml',
@@ -98,6 +98,8 @@ module.exports = function(grunt) {
                     grunt.file.write(file, fileSource.replace(/<\/widget\>/, '\t<access origin="' + url + '" />\n<\/widget>'));
                 });
 
+                /*
+                todo delete
                 // option variable "copyConfigXml"
                 if (options.copyConfigXml) {
 
@@ -107,6 +109,7 @@ module.exports = function(grunt) {
                     // copy file
                     grunt.file.write(file_www, fileSource);
                 }
+                */
 
             } else {
                 grunt.log.warn(getMessage('fileNoExists') + file);
