@@ -96,7 +96,6 @@ module.exports = function(grunt) {
                 'newapp',
                 // default folder
                 'phoneGapProject',
-
                 // settings folder
                 'myyApp'
             ]

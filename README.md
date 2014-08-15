@@ -170,6 +170,9 @@ grunt.registerTask('phonegap: build app', ['phonegap_project:build']);
 
 ## Release History
 
+##### 2014-08-15 v0.1.4
+* update version
+
 ##### 2014-08-14 v0.1.3
 * update grunt to 0.4.5
 * add lodash

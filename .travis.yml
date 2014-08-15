@@ -8,6 +8,7 @@ before_install:
 install:
   - "npm install"
 before_script:
+  - "npm install phonegap -g"
   - "npm install cordova -g"
 script:
   - "grunt 'clean files'"
