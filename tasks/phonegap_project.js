@@ -76,7 +76,7 @@ module.exports = function(grunt) {
             data.access = _.isArray(data.access) ? data.access : [];
 
             var file_www_config_xml = options.path + '/www/config.xml',
-                dataVersion = _.isString(options.version) && options.version.length > 0 ? options.version : null,
+                dataVersion = _.isString(options.version) && options.version.length > 0 && (options.version.match(/[\d]+\.[\d]+\.[\d]+/) || options.version.match(/[0-9]+\.[0-9]+\.[0-9]+/)) ? options.version : null,
                 fileSource,
                 minSdkExp = /<preference\ name\=\"android\-minSdkVersion\"\ value\=\"[0-9]+\" \/\>/,
                 fileReplace = "";

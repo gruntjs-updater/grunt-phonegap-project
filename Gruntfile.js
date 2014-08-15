@@ -16,8 +16,8 @@
  * done - cordova platform add android
  * done - cordova build
  * * https://build.phonegap.com - analysieren
- * * validation variable version e.g. "3.1.0"
- * * error message with arguments
+ * done - validation variable version e.g. "3.1.0"
+ * done - error message with arguments
  *
  * config.xml
  * done - variable copyConfigXml - think no need, check > ERROR >> The file no exists: phoneGapProject/config.xml
@@ -28,14 +28,14 @@
  * done - androidTargetSdk delete
  *
  * README.md
- * done - * build with grunt, link to plugins
- * done - * require "phonegap"
- * done - * update version
+ * done - build with grunt, link to plugins
+ * done - require "phonegap"
+ * done - update version
  * update Release History
  * update description
  *
  * grunt
- * * update grunt-contrib-clean
+ * done - update grunt-contrib-clean
  *
  * perhaps
  * * any idea for icons & screen > formular to set config
