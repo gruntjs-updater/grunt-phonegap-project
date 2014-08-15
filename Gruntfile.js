@@ -10,7 +10,6 @@
 var _ = require('lodash');
 
 module.exports = function(grunt) {
-
     grunt = _.isObject(grunt) ? grunt : {};
 
     /**
@@ -22,7 +21,7 @@ module.exports = function(grunt) {
      */
     function getTaskValues() {
 
-        // add all cordova plugins, for testing with Travis
+        // testing with Travis - add all cordova plugins, but no supported multilanguage (cant install iOS and/or Android SDK)
         var jsonFile = 'tasks/options/options_production.json',
             obj;
 
@@ -32,10 +31,11 @@ module.exports = function(grunt) {
             grunt.log.ok('# STATUS "DEVELOPMENT" #');
             grunt.log.ok('########################');
 
-            // Travis no supported multilanguage (cant install iOS and/or Android SDK), so test local with own file
+            // local test with own file
             jsonFile = 'tasks/options/options_development.json';
         }
         obj = grunt.file.readJSON(jsonFile);
+
         return _.isObject(obj) ? obj : {};
     }
 
@@ -65,6 +65,11 @@ module.exports = function(grunt) {
         // Before generating any new files, remove any previously-created files.
         clean: {
             tests: [
+                'tmp',
+                // default folder
+                'phoneGapProject',
+                // settings folder
+                'newapp',
                 // default folder
                 'phoneGapProject',
 
@@ -77,8 +82,8 @@ module.exports = function(grunt) {
         phonegap_project: {
             options: {
                 //path: 'newapp',
-                androidMinSdk: 9,
-                androidTargetSdk: 10,
+                androidMinSdk: 20,
+                androidTargetSdk: 30,
                 version: "2.3.4",
                 copyConfigXml: true
             },
@@ -108,7 +113,8 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
 
     // By default, jshint and create new project.
-    grunt.registerTask('default', ['clean', 'jshint', 'phonegap_project:create']);
+    grunt.registerTask('default', ['clean', 'jshint', 'phonegap_project']);
+    grunt.registerTask('clean files', ['clean']);
 
     // All "phonegap_project" tasks
     grunt.registerTask('1 create new App', ['phonegap_project:create']);
