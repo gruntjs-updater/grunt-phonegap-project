@@ -1,5 +1,6 @@
 # grunt-phonegap-project
-TODO - DEBUG actual version
+
+## TODO - DEBUG actual version
 [![Build Status](https://travis-ci.org/CoHyper/grunt-phonegap-project.svg?branch=v0.1.4)](https://travis-ci.org/CoHyper/grunt-phonegap-project)
 
 > Create a [Cordova](http://cordova.apache.org) Application with config folder, bundleId, platforms, plugins, androidMinSdk, androidTargetSdk, version and domains accesses.
@@ -28,6 +29,11 @@ grunt.loadNpmTasks('grunt-phonegap-project');
 
 #### Platform SDK
 To add support or rebuild a project for any platform, you need from the same machine that [supports the platform's SDK](http://docs.phonegap.com/en/edge/guide_cli_index.md.html).
+
+#### PhoneGap
+```
+$ npm install phonegap -g
+```
 
 #### Cordova
 ```
@@ -175,6 +181,7 @@ grunt.registerTask('phonegap: build app', ['phonegap_project:build']);
 
 ##### 2014-08-15 v0.1.4
 * update version
+* update readme.md
 
 ##### 2014-08-14 v0.1.3
 * update grunt to 0.4.5
