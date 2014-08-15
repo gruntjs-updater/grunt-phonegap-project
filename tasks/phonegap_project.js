@@ -22,9 +22,7 @@ module.exports = function(grunt) {
 
         var done = this.async(),
             UNDEFINED_ANDROID_MIN_SDK = -1,
-            //UNDEFINED_ANDROID_TARGET_SDK = -1, // todo delete
             isAndroidPlatformAdded = false,
-            //fileAndroidManifest = '/platforms/android/AndroidManifest.xml', // todo delete
 
             // require global options
             options = this.options({
@@ -32,9 +30,7 @@ module.exports = function(grunt) {
                 bundleId: 'de.myylinks.myyapp',
                 path: 'phoneGapProject',
                 androidMinSdk: UNDEFINED_ANDROID_MIN_SDK,
-                // androidTargetSdk: UNDEFINED_ANDROID_TARGET_SDK, // todo delete
                 version: false
-                //copyConfigXml: false // todo delete
             });
 
         /**
@@ -69,16 +65,13 @@ module.exports = function(grunt) {
         function editConfigXml(data) {
             data = _.isObject(data) ? data : {};
             data.access = _.isArray(data.access) ? data.access : [];
-            // options.copyConfigXml = _.isBoolean(options.copyConfigXml) ? options.copyConfigXml : false; // todo delete
 
             // todo rename
-            var file_www_config_xml = options.path + '/www/config.xml', // todo have rename variables
+            var file_www_config_xml = options.path + '/www/config.xml',
                 dataVersion = _.isString(options.version) && options.version.length > 0 ? options.version : null,
-                // file_www = options.path + '/www/config.xml', // todo delete
                 fileSource,
                 minSdkExp = /<preference\ name\=\"android\-minSdkVersion\"\ value\=\"[0-9]+\" \/\>/,
                 fileReplace = "";
-                // ->  /<preference name\=\"android\-minSdkVersion\";
 
             if (grunt.file.isFile(file_www_config_xml)) {
 
@@ -90,10 +83,8 @@ module.exports = function(grunt) {
 
                 // change minsdk
                 if (fileSource.match(minSdkExp) && options.androidMinSdk !== UNDEFINED_ANDROID_MIN_SDK) {
-                    //fileReplace = 'minSdkVersion="' + options.androidMinSdk + '"'; // todo delete
                     fileReplace = '<preference name="android-minSdkVersion" value="' + options.androidMinSdk + '" \/>';
                     grunt.file.write(file_www_config_xml, fileSource.replace(minSdkExp, fileReplace));
-                    //isFileChanged = true; // todo delete
                 }
 
                 // change access
@@ -117,74 +108,11 @@ module.exports = function(grunt) {
 
                 }
 
-
-                /*
-                todo delete
-                // option variable "copyConfigXml"
-                if (options.copyConfigXml) {
-
-                    // read file
-                    fileSource = grunt.file.read(file);
-
-                    // copy file
-                    grunt.file.write(file_www, fileSource);
-                }
-                */
-
             } else {
                 grunt.log.warn(getMessage('fileNoExists') + file_www_config_xml);
                 done(false);
             }
         }
-
-        /**
-         * Replace "androidMinsSdk" in manifest ...
-         *
-         * @method replaceAndroidSdk
-
-         todo delete
-
-        function replaceAndroidSdk() {
-            var filePath = options.path + fileAndroidManifest,
-                fileSource = grunt.file.read(filePath),
-                fileReplace = '',
-                // isFileChanged = false, // todo delete
-                //minSdkExp = /minSdkVersion\=\"[0-9]+\"/; // todo delete
-                minSdkExp = /<preference\ name\=\"android\-minSdkVersion\"/;
-            // ->  /<preference name\=\"android\-minSdkVersion\" value\=\"[0-9]+\" \/\>
-                //targetSdkExp = /targetSdkVersion\=\"[0-9]+\"/; // too delete
-
-            // check filePath is exists, already check in addPlatforms(), but check again
-            if (grunt.file.isFile(options.path + '/' + fileAndroidManifest)) {
-                console.log(options.androidMinSdk !== UNDEFINED_ANDROID_MIN_SDK)
-                console.log(fileSource)
-                console.log(fileSource.match(minSdkExp))
-                // search 'android:minSdkVersion="xx"'
-                if (fileSource.match(minSdkExp) && options.androidMinSdk !== UNDEFINED_ANDROID_MIN_SDK) {
-                    //fileReplace = 'minSdkVersion="' + options.androidMinSdk + '"';
-                    fileReplace = '<preference name="android-minSdkVersion" value="' + options.androidMinSdk + '" \/>';
-                    grunt.file.write(filePath, fileSource.replace(minSdkExp, fileReplace));
-                    //isFileChanged = true; // todo delete
-                    console.log(111)
-                }
-                console.log(222)
-
-                /*
-                todo delete
-                // search 'android:targetSdkVersion="xx"'
-                if (fileSource.match(targetSdkExp) && options.androidTargetSdk !== UNDEFINED_ANDROID_TARGET_SDK) {
-                    fileReplace = 'targetSdkVersion="' + options.androidTargetSdk + '"';
-
-                    // read fileSource again
-                    if (isFileChanged) {
-                        fileSource = grunt.file.read(filePath);
-                    }
-                    grunt.file.write(filePath, fileSource.replace(targetSdkExp, fileReplace));
-                }
-
-            }
-        }
-        */
 
         /**
          * Running "cordova build <platform>" for each platform
@@ -243,16 +171,8 @@ module.exports = function(grunt) {
                     grunt.file.delete(options.path, { force: true });
                 }
 
-                /*
-                todo delete
-                // create new folder
-                // BUGFIX: "cordova platform" need an exist folder
-                //grunt.file.mkdir(options.path);
-                 */
-
                 // phonegap create <folder> <bundleid> <title>
                 grunt.util.spawn({
-                    // cmd: 'cordova', // todo - check
                     cmd: 'phonegap',
                     args: [
                         'create',
