@@ -7,6 +7,18 @@
  */
 'use strict';
 
+/**
+ *
+ * TODO
+ * require "phonegap"
+ * phonegap create tmp any.any.any Any
+ * cordova platform add android
+ * cordova build
+ *
+ * https://build.phonegap.com
+ *
+ */
+
 var _ = require('lodash');
 
 module.exports = function(grunt) {
