@@ -12,21 +12,18 @@
  * TODO
  *
  * TASK
- * * phonegap create tmp any.any.any Any
- * * cordova platform add android
+ * done - phonegap create tmp any.any.any Any
+ * done - cordova platform add android
  * * cordova build
- * * https://build.phonegap.com
+ * * https://build.phonegap.com - analysieren
  * * validation variable version e.g. "3.1.0"
- * ± error message with arguments
+ * * error message with arguments
  *
  * config.xml
- * * variable copyConfigXml - think no need, check
- * * ERROR >> The file no exists: phoneGapProject/config.xml
- * * is in folder www
+ * done - variable copyConfigXml - think no need, check > ERROR >> The file no exists: phoneGapProject/config.xml
  * done - no need copy
  * done - version ok - check
  * * access ok - check
- * * any idea for icons & screen
  * * androidMinSdk other regex - <preference name="android-minSdkVersion" value="7" />
  * done - androidTargetSdk delete
  *
@@ -41,8 +38,7 @@
  * * update grunt-contrib-clean
  *
  * perhaps
- * * formular to set config
- *
+ * * any idea for icons & screen > formular to set config
  */
 
 var _ = require('lodash');
@@ -127,8 +123,8 @@ module.exports = function(grunt) {
             create: {
                 title: 'NewApp',
                 bundleId: 'de.myylinks.newapp',
-                platforms: getTaskValues().platforms,
-                plugins: getTaskValues().plugins,
+                platforms: getTaskValues().platforms, // todo
+                //plugins: getTaskValues().plugins, // todo
                 deleteOptionsPath: true,
                 access: [
                     "http://myylinks.de",

@@ -24,7 +24,7 @@ module.exports = function(grunt) {
             UNDEFINED_ANDROID_MIN_SDK = -1,
             //UNDEFINED_ANDROID_TARGET_SDK = -1, // todo delete
             isAndroidPlatformAdded = false,
-            fileAndroidManifest = '/platforms/android/AndroidManifest.xml',
+            //fileAndroidManifest = '/platforms/android/AndroidManifest.xml', // todo delete
 
             // require global options
             options = this.options({
@@ -71,10 +71,14 @@ module.exports = function(grunt) {
             data.access = _.isArray(data.access) ? data.access : [];
             // options.copyConfigXml = _.isBoolean(options.copyConfigXml) ? options.copyConfigXml : false; // todo delete
 
-            var dataVersion = _.isString(options.version) && options.version.length > 0 ? options.version : null,
-                file_www_config_xml = options.path + '/www/config.xml', // todo have rename variables - delete todo
+            // todo rename
+            var file_www_config_xml = options.path + '/www/config.xml', // todo have rename variables
+                dataVersion = _.isString(options.version) && options.version.length > 0 ? options.version : null,
                 // file_www = options.path + '/www/config.xml', // todo delete
-                fileSource;
+                fileSource,
+                minSdkExp = /<preference\ name\=\"android\-minSdkVersion\"\ value\=\"[0-9]+\" \/\>/,
+                fileReplace = "";
+                // ->  /<preference name\=\"android\-minSdkVersion\";
 
             if (grunt.file.isFile(file_www_config_xml)) {
 
@@ -84,7 +88,15 @@ module.exports = function(grunt) {
                     grunt.file.write(file_www_config_xml, fileSource.replace(/version\=\"[0-9\.]+"/, 'version="' + dataVersion + '"'));
                 }
 
+                // change minsdk
+                if (fileSource.match(minSdkExp) && options.androidMinSdk !== UNDEFINED_ANDROID_MIN_SDK) {
+                    //fileReplace = 'minSdkVersion="' + options.androidMinSdk + '"'; // todo delete
+                    fileReplace = '<preference name="android-minSdkVersion" value="' + options.androidMinSdk + '" \/>';
+                    grunt.file.write(file_www_config_xml, fileSource.replace(minSdkExp, fileReplace));
+                    //isFileChanged = true; // todo delete
+                }
 
+                // change access
                 data.access.forEach(function(url, index) {
 
                     // delete default access
@@ -118,27 +130,36 @@ module.exports = function(grunt) {
         }
 
         /**
-         * Replace "androidMinsSdk"
+         * Replace "androidMinsSdk" in manifest ...
          *
          * @method replaceAndroidSdk
-         */
+
+         todo delete
+
         function replaceAndroidSdk() {
             var filePath = options.path + fileAndroidManifest,
                 fileSource = grunt.file.read(filePath),
                 fileReplace = '',
-                isFileChanged = false,
-                minSdkExp = /minSdkVersion\=\"[0-9]+\"/;
+                // isFileChanged = false, // todo delete
+                //minSdkExp = /minSdkVersion\=\"[0-9]+\"/; // todo delete
+                minSdkExp = /<preference\ name\=\"android\-minSdkVersion\"/;
+            // ->  /<preference name\=\"android\-minSdkVersion\" value\=\"[0-9]+\" \/\>
                 //targetSdkExp = /targetSdkVersion\=\"[0-9]+\"/; // too delete
 
             // check filePath is exists, already check in addPlatforms(), but check again
             if (grunt.file.isFile(options.path + '/' + fileAndroidManifest)) {
-
+                console.log(options.androidMinSdk !== UNDEFINED_ANDROID_MIN_SDK)
+                console.log(fileSource)
+                console.log(fileSource.match(minSdkExp))
                 // search 'android:minSdkVersion="xx"'
                 if (fileSource.match(minSdkExp) && options.androidMinSdk !== UNDEFINED_ANDROID_MIN_SDK) {
-                    fileReplace = 'minSdkVersion="' + options.androidMinSdk + '"';
+                    //fileReplace = 'minSdkVersion="' + options.androidMinSdk + '"';
+                    fileReplace = '<preference name="android-minSdkVersion" value="' + options.androidMinSdk + '" \/>';
                     grunt.file.write(filePath, fileSource.replace(minSdkExp, fileReplace));
-                    isFileChanged = true;
+                    //isFileChanged = true; // todo delete
+                    console.log(111)
                 }
+                console.log(222)
 
                 /*
                 todo delete
@@ -152,9 +173,10 @@ module.exports = function(grunt) {
                     }
                     grunt.file.write(filePath, fileSource.replace(targetSdkExp, fileReplace));
                 }
-                */
+
             }
         }
+        */
 
         /**
          * Running "cordova build <platform>" for each platform
@@ -290,9 +312,11 @@ module.exports = function(grunt) {
                         } else {
                             grunt.log.ok(result.stdout);
 
+                            /*
                             if (isAndroidPlatformAdded && grunt.file.isFile(options.path + '/' + fileAndroidManifest)) {
                                 replaceAndroidSdk();
                             }
+                             */
                         }
                     });
                 }
