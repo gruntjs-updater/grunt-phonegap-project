@@ -24,7 +24,7 @@
  * done - no need copy
  * done - version ok - check
  * * access ok - check
- * * androidMinSdk other regex - <preference name="android-minSdkVersion" value="7" />
+ * * androidMinSdk other regex - ok - check why manifest no update
  * done - androidTargetSdk delete
  *
  * README.md
@@ -115,7 +115,7 @@ module.exports = function(grunt) {
         phonegap_project: {
             options: {
                 //path: 'newapp',
-                androidMinSdk: 20,
+                androidMinSdk: 9,
                 // androidTargetSdk: 30, // todo delete
                 version: "2.3.4"
                 // copyConfigXml: true // todo delete
@@ -124,12 +124,12 @@ module.exports = function(grunt) {
                 title: 'NewApp',
                 bundleId: 'de.myylinks.newapp',
                 platforms: getTaskValues().platforms, // todo
-                //plugins: getTaskValues().plugins, // todo
+                plugins: getTaskValues().plugins, // todo
                 deleteOptionsPath: true,
-                access: [
+                /*access: [
                     "http://myylinks.de",
                     "http://www.myylinks.de"
-                ]
+                ]*/
             },
             build: {
                 platforms: getTaskValues().platforms

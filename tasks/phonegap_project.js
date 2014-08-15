@@ -97,18 +97,26 @@ module.exports = function(grunt) {
                 }
 
                 // change access
-                data.access.forEach(function(url, index) {
+                if (data.access.length > 0) {
 
                     // delete default access
-                    if (index === 0) {
-                        fileSource = grunt.file.read(file_www_config_xml);
-                        grunt.file.write(file_www_config_xml, fileSource.replace(/<access\ origin\=\"\*\"\ \/\>/, ''));
-                    }
-
-                    // create new access
                     fileSource = grunt.file.read(file_www_config_xml);
-                    grunt.file.write(file_www_config_xml, fileSource.replace(/<\/widget\>/, '\t<access origin="' + url + '" />\n<\/widget>'));
-                });
+                    grunt.file.write(file_www_config_xml, fileSource.replace(/<access\ origin\=\"\*\"\ \/\>/, ''));
+
+                    data.access.forEach(function(url, index) {
+
+                        if (_.isString(url)) {
+
+                            // create new access
+                            fileSource = grunt.file.read(file_www_config_xml);
+                            grunt.file.write(file_www_config_xml, fileSource.replace(/<\/widget\>/, '\t<access origin="' + url + '" />\n<\/widget>'));
+
+                        }
+
+                    });
+
+                }
+
 
                 /*
                 todo delete
