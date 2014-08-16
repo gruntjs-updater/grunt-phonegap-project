@@ -7,111 +7,35 @@
  */
 'use strict';
 
-var _ = require('lodash');
-
 module.exports = function(grunt) {
-    grunt = _.isObject(grunt) ? grunt : {};
 
-    /**
-     * Testing local and with Travis without any changes
-     * TODO : perhaps other solution
-     *
-     * @method getTaskValues
-     * @returns {Object}
-     */
-    function getTaskValues() {
+    // need for load-grunt-config
+        var path = require('path');
 
-        // testing with Travis - add all cordova plugins, but no supported multilanguage (cant install iOS and/or Android SDK)
-        var jsonFile = 'tasks/options/options_production.json',
-            obj;
+    //grunt = _.isObject(grunt) ? grunt : {};
 
-        // check if file local exists
-        if (grunt.file.isFile('../grunt_dummy.js')) {
-            grunt.log.ok('########################');
-            grunt.log.ok('# STATUS "DEVELOPMENT" #');
-            grunt.log.ok('########################');
-
-            // local create with own file
-            jsonFile = 'tasks/options/options_development.json';
-        }
-        obj = grunt.file.readJSON(jsonFile);
-
-        return _.isObject(obj) ? obj : {};
-    }
-
-    // Project configuration.
-    grunt.initConfig({
-
-        jshint: {
-            all: [
-                'Gruntfile.js',
-                'tasks/*.js'
-            ],
-            options: {
-                "curly": true,
-                "eqeqeq": true,
-                "immed": true,
-                "latedef": true,
-                "newcap": true,
-                "noarg": true,
-                "sub": true,
-                "undef": true,
-                "boss": true,
-                "eqnull": true,
-                "node": true
-            }
+    require('load-grunt-config')(grunt, {
+        configPath: path.join(process.cwd(), 'grunt'),
+        init: true,
+        data: {
+            //test: false
         },
-
-        // Before generating any new files, remove any previously-created files.
-        clean: {
-            tests: [
-                'tmp',
-                // default folder
-                'phoneGapProject',
-                // settings folder
-                'newapp',
-                // default folder
-                'phoneGapProject',
-                // settings folder
-                'myyApp'
-            ]
+        loadGruntTasks: { //can optionally pass options to load-grunt-tasks.  If you set to false, it will disable auto loading tasks.
+            pattern: 'grunt-*',
+            config: require('./package.json'),
+            scope: 'devDependencies'
         },
-
-        // Configuration to be run
-        phonegap_project: {
-            options: {
-                //path: 'newapp',
-                androidMinSdk: 10,
-                // androidTargetSdk: 30, // todo delete
-                version: "2.3.4"
-                // copyConfigXml: true // todo delete
-            },
-            create: {
-                title: 'NewApp',
-                bundleId: 'de.myylinks.newapp',
-                platforms: getTaskValues().platforms, // todo
-                plugins: getTaskValues().plugins, // todo
-                deleteOptionsPath: true,
-                access: [
-                    "http://myylinks.de",
-                    "http://www.myylinks.de"
-                ]
-            },
-            build: {
-                platforms: getTaskValues().platforms
-            }
-        }
-
+        postProcess: function(config) {} //can post process config object before it gets passed to grunt
     });
 
     // Actually load this plugin's task(s).
     grunt.loadTasks('tasks');
 
     // These plugins provide necessary tasks.
-    grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-contrib-clean');
+    //grunt.loadNpmTasks('grunt-contrib-jshint');
+    //grunt.loadNpmTasks('grunt-contrib-clean');
 
-    // By default, jshint and create new project.
+
     grunt.registerTask('default', ['clean', 'jshint', 'phonegap_project']);
     grunt.registerTask('clean files', ['clean']);
 
