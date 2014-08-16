@@ -7,26 +7,27 @@
  */
 'use strict';
 
+// need for load-grunt-config
+var path = require('path');
+
 module.exports = function(grunt) {
-
-    // need for load-grunt-config
-        var path = require('path');
-
-    //grunt = _.isObject(grunt) ? grunt : {};
 
     require('load-grunt-config')(grunt, {
         configPath: path.join(process.cwd(), 'grunt'),
         init: true,
         data: {
-            //test: false
+            // need for "grunt-readme-generator"
+            pkg: grunt.file.readJSON('package.json')
         },
         loadGruntTasks: { //can optionally pass options to load-grunt-tasks.  If you set to false, it will disable auto loading tasks.
-            pattern: 'grunt-*',
-            config: require('./package.json'),
-            scope: 'devDependencies'
-        },
+            //pattern: 'grunt-*',
+            //config: require('./package.json'),
+            //scope: 'devDependencies'
+        }
+
+        /*,
         postProcess: function(config) {} //can post process config object before it gets passed to grunt
-    });
+    */});
 
     // Actually load this plugin's task(s).
     grunt.loadTasks('tasks');
@@ -38,6 +39,8 @@ module.exports = function(grunt) {
 
     grunt.registerTask('default', ['clean', 'jshint', 'phonegap_project']);
     grunt.registerTask('clean files', ['clean']);
+
+    grunt.registerTask('create readme', ['readme_generator']);
 
     // All "phonegap_project" tasks
     grunt.registerTask('1 create new App', ['phonegap_project:create']);

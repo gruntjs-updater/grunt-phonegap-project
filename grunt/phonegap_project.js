@@ -11,22 +11,22 @@ module.exports = function (grunt, options) {
     function getTaskValues(key) {
         key = key ? key : null;
 
-        // testing with Travis - add all cordova plugins, but no supported multilanguage (cant install iOS and/or Android SDK)
+        // creating with Travis - add all cordova plugins, but they are no supported multilanguage (cant install iOS and/or Android SDK)
         var jsonFile = 'tasks/options/options_travis.json',
             obj;
 
         // check if file local exists
         if (grunt.file.isFile('../grunt_dummy.js')) {
-            grunt.log.ok('########################');
-            grunt.log.ok('# STATUS "DEVELOPMENT" #');
-            grunt.log.ok('########################');
+            grunt.log.ok('###################');
+            grunt.log.ok('#  "DEVELOPMENT"  #');
+            grunt.log.ok('###################');
 
             // local create with own file
             jsonFile = 'tasks/options/options_development.json';
         }
         obj = grunt.file.readJSON(jsonFile);
 
-        return obj && obj[key] ? obj[key] : [];
+        return obj && key && obj[key] ? obj[key] : [];
     }
 
     return {
