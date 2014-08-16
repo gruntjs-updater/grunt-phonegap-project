@@ -167,38 +167,7 @@ grunt.registerTask('phonegap: build app', ['phonegap_project:build']);
 
 ## Release History
 
-##### 2014-08-15 v0.1.4
-* update readme.md
-* update travis
-* validation version
-* update node
-
-##### 2014-08-14 v0.1.3
-* update grunt to 0.4.5
-* add lodash
-* add new variable deleteOptionsPath
-* add debug comments
-* add new variable version
-* add new variable access
-* add new variable copyConfigXml
-* little bugfixes
-* update readme.md
-* update regex
-
-##### 2014-05-23 v0.1.2
-* update readme.md
-* bugfix some grunt functions
-* add travis
-
-##### 2014-05-22 v0.1.1
-* clean project for public
-
-##### 2014-04-24 v0.1.0
-* add some defaults cordova commands
-* cordova create -folder- -bundleid- -apptitle-
-* cordova platform add -platform-
-* cordova plugin add -plugin-
-* cordova build -platform-
+[All Releases history are here](https://github.com/CoHyper/grunt-phonegap-project/tree/master/docs/reloeases)
 
 ## License
 Copyright (c) 2014 svenlang<br />
