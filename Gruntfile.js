@@ -7,40 +7,6 @@
  */
 'use strict';
 
-/**
- *
- * TODO
- *
- * TASK
- * done - phonegap create tmp any.any.any Any
- * done - cordova platform add android
- * done - cordova build
- * * https://build.phonegap.com - analysieren
- * done - validation variable version e.g. "3.1.0"
- * done - error message with arguments
- *
- * config.xml
- * done - variable copyConfigXml - think no need, check > ERROR >> The file no exists: phoneGapProject/config.xml
- * done - no need copy
- * done - version ok - check
- * done - access ok - check
- * * androidMinSdk other regex - ok - check why manifest no update
- * done - androidTargetSdk delete
- *
- * README.md
- * done - build with grunt, link to plugins
- * done - require "phonegap"
- * done - update version
- * update Release History
- * update description
- *
- * grunt
- * done - update grunt-contrib-clean
- *
- * perhaps
- * * any idea for icons & screen > formular to set config
- */
-
 var _ = require('lodash');
 
 module.exports = function(grunt) {
@@ -65,7 +31,7 @@ module.exports = function(grunt) {
             grunt.log.ok('# STATUS "DEVELOPMENT" #');
             grunt.log.ok('########################');
 
-            // local test with own file
+            // local create with own file
             jsonFile = 'tasks/options/options_development.json';
         }
         obj = grunt.file.readJSON(jsonFile);
@@ -115,7 +81,7 @@ module.exports = function(grunt) {
         phonegap_project: {
             options: {
                 //path: 'newapp',
-                androidMinSdk: 9,
+                androidMinSdk: 10,
                 // androidTargetSdk: 30, // todo delete
                 version: "2.3.4"
                 // copyConfigXml: true // todo delete
@@ -126,10 +92,10 @@ module.exports = function(grunt) {
                 platforms: getTaskValues().platforms, // todo
                 plugins: getTaskValues().plugins, // todo
                 deleteOptionsPath: true,
-                /*access: [
+                access: [
                     "http://myylinks.de",
                     "http://www.myylinks.de"
-                ]*/
+                ]
             },
             build: {
                 platforms: getTaskValues().platforms
