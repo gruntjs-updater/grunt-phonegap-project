@@ -32,7 +32,6 @@ grunt.initConfig({
       bundleId: 'de.myylinks.myyapp',
       platforms: [
         'ios',
-
         'android'
       ],
       plugins: [

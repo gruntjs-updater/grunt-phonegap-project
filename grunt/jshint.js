@@ -2,8 +2,9 @@ module.exports = function (grunt, options) {
 
     return {
         all: [
-            'Gruntfile.js',
-            'tasks/*.js'
+            "Gruntfile.js",
+            "grunt/*js",
+            "tasks/*.js"
         ],
         options: {
             "curly": true,

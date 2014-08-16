@@ -37,10 +37,12 @@ module.exports = function(grunt) {
     //grunt.loadNpmTasks('grunt-contrib-clean');
 
 
-    grunt.registerTask('default', ['clean', 'jshint', 'phonegap_project']);
-    grunt.registerTask('clean files', ['clean']);
-
-    grunt.registerTask('create readme', ['readme_generator']);
+    grunt.registerTask('default', [
+        'clean',
+        'jshint',
+        'readme_generator',
+        'phonegap_project'
+    ]);
 
     // All "phonegap_project" tasks
     grunt.registerTask('1 create new App', ['phonegap_project:create']);

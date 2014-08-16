@@ -1,4 +1,7 @@
 {
+    "options": {},
+    "create": {},
+    "build": {},
     "platforms": [],
     "plugins": [
         "org.apache.cordova.battery-status",
