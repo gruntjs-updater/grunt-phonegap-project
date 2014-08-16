@@ -22,7 +22,7 @@ module.exports = function(grunt) {
 
         var done = this.async(),
             UNDEFINED_ANDROID_MIN_SDK = -1,
-            isAndroidPlatformAdded = false, // todo check
+            //isAndroidPlatformAdded = false, // todo check if need
 
             // require global options
             options = this.options({
@@ -97,28 +97,24 @@ module.exports = function(grunt) {
                 }
 
                 // change access
-                if (data.access.length > 0) {
+                data.access.forEach(function(url, index) {
 
-                    data.access.forEach(function(url, index) {
+                    if (_.isString(url)) {
 
-                        if (_.isString(url)) {
+                        if (index === 1) {
 
-                            if (index === 1) {
-
-                                // delete default access
-                                fileSource = grunt.file.read(file_www_config_xml);
-                                grunt.file.write(file_www_config_xml, fileSource.replace(/<access\ origin\=\"\*\"\ \/\>/, ''));
-                            }
-
-                            // create new access
+                            // delete default access
                             fileSource = grunt.file.read(file_www_config_xml);
-                            grunt.file.write(file_www_config_xml, fileSource.replace(/<\/widget\>/, '\t<access origin="' + url + '" />\n<\/widget>'));
-
+                            grunt.file.write(file_www_config_xml, fileSource.replace(/<access\ origin\=\"\*\"\ \/\>/, ''));
                         }
 
-                    });
+                        // create new access
+                        fileSource = grunt.file.read(file_www_config_xml);
+                        grunt.file.write(file_www_config_xml, fileSource.replace(/<\/widget\>/, '\t<access origin="' + url + '" />\n<\/widget>'));
 
-                }
+                    }
+
+                });
 
             } else {
                 grunt.log.warn(getMessage('fileNoExists', file_www_config_xml));
@@ -228,7 +224,8 @@ module.exports = function(grunt) {
 
                     // check for android SDK
                     if (platform === 'android') {
-                        isAndroidPlatformAdded = true; // todo check
+                        // todo : check if need
+                        // isAndroidPlatformAdded = true;
                     }
 
                     // cordova platform add <platform>
@@ -251,14 +248,6 @@ module.exports = function(grunt) {
                             done(false);
                         } else {
                             grunt.log.ok(result.stdout);
-
-                            /*
-                             // todo delete
-                            // todo check
-                            if (isAndroidPlatformAdded && grunt.file.isFile(options.path + '/' + fileAndroidManifest)) {
-                                replaceAndroidSdk();
-                            }
-                             */
                         }
                     });
                 }
