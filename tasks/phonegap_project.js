@@ -18,19 +18,19 @@ module.exports = function(grunt) {
     // creation: http://gruntjs.com/creating-tasks
     // require('./lib/set').init(grunt);
 
-    grunt.registerMultiTask('phonegap_project', 'Build a Phonegap application.', function() {
+    grunt.registerMultiTask('phonegap_project', 'Build a PhoneGap application.', function() {
 
         var done = this.async(),
             UNDEFINED_ANDROID_MIN_SDK = -1,
-            //isAndroidPlatformAdded = false, // todo check if need
+            isAndroidPlatformAdded = false,
 
-            // require global options
+        // require global options
             options = this.options({
                 title: 'MyyApp',
                 bundleId: 'de.myylinks.myyapp',
                 path: 'phoneGapProject',
                 androidMinSdk: UNDEFINED_ANDROID_MIN_SDK,
-                version: false
+                version: null
             });
 
         /**
@@ -77,23 +77,36 @@ module.exports = function(grunt) {
 
             var file_www_config_xml = options.path + '/www/config.xml',
                 dataVersion = _.isString(options.version) && options.version.length > 0 && (options.version.match(/[\d]+\.[\d]+\.[\d]+/) || options.version.match(/[0-9]+\.[0-9]+\.[0-9]+/)) ? options.version : null,
-                fileSource,
                 minSdkExp = /<preference\ name\=\"android\-minSdkVersion\"\ value\=\"[0-9]+\" \/\>/,
+                fileSource,
                 fileReplace = "";
 
             // check if file exists
             if (grunt.file.isFile(file_www_config_xml)) {
 
                 // change version
+
                 if (dataVersion) {
                     fileSource = grunt.file.read(file_www_config_xml);
-                    grunt.file.write(file_www_config_xml, fileSource.replace(/version\=\"[0-9\.]+"/, 'version="' + dataVersion + '"'));
+                    grunt.file.write(
+                        file_www_config_xml,
+                        fileSource.replace(
+                            /version\=\"[0-9\.]+"/,
+                            'version="' + dataVersion + '"'
+                        )
+                    );
                 }
 
-                // change minsdk
+                // change minSdk
                 if (fileSource.match(minSdkExp) && options.androidMinSdk !== UNDEFINED_ANDROID_MIN_SDK) {
-                    fileReplace = '<preference name="android-minSdkVersion" value="' + options.androidMinSdk + '" \/>';
-                    grunt.file.write(file_www_config_xml, fileSource.replace(minSdkExp, fileReplace));
+                    fileSource = grunt.file.read(file_www_config_xml);
+                    grunt.file.write(
+                        file_www_config_xml,
+                        fileSource.replace(
+                            minSdkExp,
+                            '<preference name="android-minSdkVersion" value="' + options.androidMinSdk + '" \/>'
+                        )
+                    );
                 }
 
                 // change access
@@ -101,24 +114,48 @@ module.exports = function(grunt) {
 
                     if (_.isString(url)) {
 
+                        fileSource = grunt.file.read(file_www_config_xml);
+
                         if (index === 1) {
 
-                            // delete default access
-                            fileSource = grunt.file.read(file_www_config_xml);
-                            grunt.file.write(file_www_config_xml, fileSource.replace(/<access\ origin\=\"\*\"\ \/\>/, ''));
+                            // delete default access and update
+                            grunt.file.write(
+                                file_www_config_xml,
+                                fileSource.replace(
+                                    /<access\ origin\=\"\*\"\ \/\>/,
+                                    '<access origin="' + url + '" />'
+                                )
+                            );
+                        } else {
+
+                            // create all other accesses
+                            grunt.file.write(
+                                file_www_config_xml,
+                                fileSource.replace(
+                                    /<\/widget\>/,
+                                    '\t<access origin="' + url + '" />\n<\/widget>'
+                                )
+                            );
                         }
-
-                        // create new access
-                        fileSource = grunt.file.read(file_www_config_xml);
-                        grunt.file.write(file_www_config_xml, fileSource.replace(/<\/widget\>/, '\t<access origin="' + url + '" />\n<\/widget>'));
-
                     }
-
                 });
 
             } else {
                 grunt.log.warn(getMessage('fileNoExists', file_www_config_xml));
                 done(false);
+            }
+        }
+
+        // todo
+        function editManifestXml() {
+            var file_platform_android_manifest_xml = options.path + "/platforms/android/AndroidManifest.xml";
+
+            // check if file exists
+            if (grunt.file.isFile(file_platform_android_manifest_xml)) {
+
+                // todo need update version & minSdk extra
+                //console.log("yes, exists");
+
             }
         }
 
@@ -163,7 +200,7 @@ module.exports = function(grunt) {
         }
 
         /**
-         * Running "cordova create <path> <bundleid> <title"
+         * Running "phonegap create <path> <bundleid> <title"
          *
          * @method create
          * @param data {Object} The Object to create a new App
@@ -222,10 +259,9 @@ module.exports = function(grunt) {
 
                 if (_.isString(platform)) {
 
-                    // check for android SDK
+                    // check for android manifest
                     if (platform === 'android') {
-                        // todo : check if need
-                        // isAndroidPlatformAdded = true;
+                        isAndroidPlatformAdded = true;
                     }
 
                     // cordova platform add <platform>
@@ -248,6 +284,10 @@ module.exports = function(grunt) {
                             done(false);
                         } else {
                             grunt.log.ok(result.stdout);
+
+                            if (isAndroidPlatformAdded) {
+                                editManifestXml();
+                            }
                         }
                     });
                 }
@@ -282,7 +322,7 @@ module.exports = function(grunt) {
         }
 
         /**
-         * Eventhandler
+         * EventHandler
          *
          * @method onCompleted
          * @param error

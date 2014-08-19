@@ -31,8 +31,8 @@ module.exports = function (grunt, options) {
 
     return {
         options: {
-            //path: 'newapp',
-            androidMinSdk: 10,
+            path: 'newapp',
+            androidMinSdk: 13,
             version: "2.3.4"
         },
         create: {
