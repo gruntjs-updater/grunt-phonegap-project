@@ -9,6 +9,7 @@ install:
 before_script:
   - "npm install phonegap -g"
   - "npm install cordova -g"
+  - "npm install plugman -g"
 script:
   - "grunt 'phonegap_project:create'"
   - "grunt 'phonegap_project:build'"
