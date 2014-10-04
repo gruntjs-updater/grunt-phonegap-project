@@ -2,7 +2,7 @@
  * grunt-phonegap-project
  * https://github.com/CoHyper/grunt-phonegap-project
  *
- * Copyright (c) 2014 svenlang
+ * Copyright (c) 2014 Sven Lang
  * Licensed under the MIT license.
  */
 'use strict';

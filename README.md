@@ -212,7 +212,7 @@ notifications:
 ## License
 [[Back To Top]](#)
 
-Copyright (c) 2014 svenlang<br />
+Copyright (c) 2014 Sven Lang<br />
 Licensed under the MIT license.
 
 [![docs examples](https://sourcegraph.com/api/repos/github.com/CoHyper/grunt-phonegap-project/.badges/docs-examples.png)](https://sourcegraph.com/github.com/CoHyper/grunt-phonegap-project) [![dependencies](https://sourcegraph.com/api/repos/github.com/CoHyper/grunt-phonegap-project/.badges/dependencies.png)](https://sourcegraph.com/github.com/CoHyper/grunt-phonegap-project) [![status](https://sourcegraph.com/api/repos/github.com/CoHyper/grunt-phonegap-project/.badges/status.png)](https://sourcegraph.com/github.com/CoHyper/grunt-phonegap-project) [![funcs](https://sourcegraph.com/api/repos/github.com/CoHyper/grunt-phonegap-project/.badges/funcs.png)](https://sourcegraph.com/github.com/CoHyper/grunt-phonegap-project) [![top func](https://sourcegraph.com/api/repos/github.com/CoHyper/grunt-phonegap-project/.badges/top-func.png)](https://sourcegraph.com/github.com/CoHyper/grunt-phonegap-project) [![library users](https://sourcegraph.com/api/repos/github.com/CoHyper/grunt-phonegap-project/.badges/library-users.png)](https://sourcegraph.com/github.com/CoHyper/grunt-phonegap-project) [![authors](https://sourcegraph.com/api/repos/github.com/CoHyper/grunt-phonegap-project/.badges/authors.png)](https://sourcegraph.com/github.com/CoHyper/grunt-phonegap-project) [![xrefs](https://sourcegraph.com/api/repos/github.com/CoHyper/grunt-phonegap-project/.badges/xrefs.png)](https://sourcegraph.com/github.com/CoHyper/grunt-phonegap-project)
