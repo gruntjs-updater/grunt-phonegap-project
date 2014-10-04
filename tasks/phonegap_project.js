@@ -6,7 +6,7 @@
  * grunt-phonegap-project
  * https://github.com/CoHyper/grunt-phonegap-project
  *
- * Copyright (c) 2014 svenlang
+ * Copyright (c) 2014 Sven Lang
  * Licensed under the MIT license.
  */
 
@@ -22,6 +22,7 @@ module.exports = function(grunt) {
 
         var done = this.async(),
             UNDEFINED_ANDROID_MIN_SDK = -1,
+            UNDEFINED_ANDROID_TARGET_SDK = -1,
             isAndroidPlatformAdded = false,
 
         // require global options
@@ -30,6 +31,7 @@ module.exports = function(grunt) {
                 bundleId: 'de.myylinks.myyapp',
                 path: 'phoneGapProject',
                 androidMinSdk: UNDEFINED_ANDROID_MIN_SDK,
+                androidTargetSdk: UNDEFINED_ANDROID_TARGET_SDK,
                 version: null
             });
 
@@ -39,6 +41,7 @@ module.exports = function(grunt) {
          * @method getMessage
          * @param name {String} The key of the message to get
          * @returns {String} Returns the message
+         * @private
          * @example
          *      getMessage("buildPlatform", "iOS");
          */
@@ -70,6 +73,7 @@ module.exports = function(grunt) {
          *
          * @method editConfigXml
          * @param data {Object} The Object to config the config.xml file
+         * @private
          */
         function editConfigXml(data) {
             data = _.isObject(data) ? data : {};
@@ -146,17 +150,36 @@ module.exports = function(grunt) {
             }
         }
 
-        // todo
+
         function editManifestXml() {
-            var file_platform_android_manifest_xml = options.path + "/platforms/android/AndroidManifest.xml";
+            // todo : next update
+            // need update version & minSdk extra
+            /*
+            var file_platform_android_manifest_xml = options.path + "/platforms/android/AndroidManifest.xml",
+                fileSource,
+                minSdk = options.androidMinSdk && options.androidMinSdk !== UNDEFINED_ANDROID_MIN_SDK ? options.androidMinSdk : null,
+                targetSdk = options.androidTargetSdk && options.androidTargetSdk !== UNDEFINED_ANDROID_TARGET_SDK ? options.androidTargetSdk : null;
 
             // check if file exists
-            if (grunt.file.isFile(file_platform_android_manifest_xml)) {
+            if (isAndroidPlatformAdded && grunt.file.isFile(file_platform_android_manifest_xml)) {
 
-                // todo need update version & minSdk extra
                 //console.log("yes, exists");
 
+                fileSource = grunt.file.read(file_platform_android_manifest_xml);
+
+                if (minSdk || targetSdk) {
+
+                    grunt.file.write(
+                        file_platform_android_manifest_xml,
+                        fileSource.replace(
+                            /<uses\-sdk\ android\:minSdkVersion\=\"[0-9]+$1\"\ android\:targetSdkVersion\=\"[0-9]+$2\"\ \/\>/,
+                            '<uses-sdk android:minSdkVersion="' + minSdk ? minSdk : $1 + '" android:targetSdkVersion="' + targetSdk ? targetSdk : $2 + '" />'
+                        )
+                    );
+                }
+
             }
+             */
         }
 
         /**
@@ -239,6 +262,8 @@ module.exports = function(grunt) {
                         addPlugins(data.plugins);
 
                         editConfigXml(data);
+
+                        editManifestXml();
                     }
                 });
             } else {
@@ -251,6 +276,7 @@ module.exports = function(grunt) {
          *
          * @method addPlatforms
          * @param data {Array}
+         * @private
          */
         function addPlatforms(data) {
             data = _.isArray(data) ? data : [];
@@ -284,10 +310,6 @@ module.exports = function(grunt) {
                             done(false);
                         } else {
                             grunt.log.ok(result.stdout);
-
-                            if (isAndroidPlatformAdded) {
-                                editManifestXml();
-                            }
                         }
                     });
                 }
@@ -297,6 +319,7 @@ module.exports = function(grunt) {
         /**
          * @method addPlugins
          * @param data {Array}
+         * @private
          */
         function addPlugins(data) {
             data = _.isArray(data) ? data : [];
