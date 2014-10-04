@@ -33,7 +33,7 @@ module.exports = function (grunt, options) {
         options: {
             path: 'newapp',
             androidMinSdk: 13,
-            version: "2.3.4"
+            version: "0.1.0"
         },
         create: {
             title: 'NewApp',

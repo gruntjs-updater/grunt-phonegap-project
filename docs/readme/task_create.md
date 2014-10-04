@@ -25,7 +25,6 @@ Define the set of external domains the app is allowed to communicate with. The d
 ```
 grunt.initConfig({
   phonegap_project: {
-    options: {},
     create: {
       deleteOptionsPath: true,
       title: 'MyyApp',
