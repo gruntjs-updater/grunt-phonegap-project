@@ -10,6 +10,7 @@
  * Licensed under the MIT license.
  */
 
+// TODO : check can lodash inside gruntModule
 var _ = require('lodash');
 
 module.exports = function(grunt) {
@@ -25,7 +26,7 @@ module.exports = function(grunt) {
             UNDEFINED_ANDROID_TARGET_SDK = -1,
             isAndroidPlatformAdded = false,
 
-        // require global options
+        	// require global options
             options = this.options({
                 title: 'MyyApp',
                 bundleId: 'de.myylinks.myyapp',
@@ -49,14 +50,14 @@ module.exports = function(grunt) {
             name = _.isString(name) ? name : null;
             var arguments_length = arguments.length,
                 i = 0,
-                output;
+                output,
+                message = {
+	                buildPlatform: 'Please wait, we build App Platform: {0}',
+	                pathNoExists: 'The path no exists: {0}',
+	                fileNoExists: 'The file no exists: {0}',
+	                valueDeleteOptionsPathError: 'Check Variable "deleteOptionsPath"'
+	            };
 
-            var message = {
-                buildPlatform: 'Please wait, we build App Platform: {0}',
-                pathNoExists: 'The path no exists: {0}',
-                fileNoExists: 'The file no exists: {0}',
-                valueDeleteOptionsPathError: 'Check Variable "deleteOptionsPath"'
-            };
             output = message[name] || name;
 
             if (arguments_length > 1) {
@@ -89,7 +90,6 @@ module.exports = function(grunt) {
             if (grunt.file.isFile(file_www_config_xml)) {
 
                 // change version
-
                 if (dataVersion) {
                     fileSource = grunt.file.read(file_www_config_xml);
                     grunt.file.write(
@@ -231,6 +231,10 @@ module.exports = function(grunt) {
         function create(data) {
             data = _.isObject(data) ? data : {};
             data.deleteOptionsPath = _.isBoolean(data.deleteOptionsPath) ? data.deleteOptionsPath : false;
+            data.bundleId = _.isString(data.bundleId) && data.bundleId.length > 0 ? data.bundleId : options.bundleId;
+            data.title = _.isString(data.title) && data.title.length > 0 ? data.title : options.title;
+            data.plugins = _.isArray(data.plugins) ? data.plugins : [];
+            data.platforms = _.isArray(data.platforms) ? data.platforms : [];
 
             if (data.deleteOptionsPath) {
 
@@ -245,8 +249,8 @@ module.exports = function(grunt) {
                     args: [
                         'create',
                         options.path,
-                        _.isString(data.bundleId) && data.bundleId.length > 0 ? data.bundleId : options.bundleId,
-                        _.isString(data.title) && data.title.length > 0 ? data.title : options.title
+                        data.bundleId,
+                        data.title
                     ]
                 }, function(error, result, code) {
                     if (code) {
@@ -301,7 +305,10 @@ module.exports = function(grunt) {
                         opts: {
                             cwd: options.path
                         }
-                    }, function (error, result, code) {
+                    },
+
+// TODO : check can insert function onCompleted()
+                    function (error, result, code) {
                         if (code) {
                             grunt.log.warn(code);
                             grunt.log.warn(result);
