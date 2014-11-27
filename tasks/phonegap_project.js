@@ -14,7 +14,7 @@ if (!module) {
 }
 
 /**
- * Lodash object
+ * Lodash
  *
  * @attribute _
  * @private
