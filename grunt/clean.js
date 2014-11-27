@@ -5,12 +5,16 @@ module.exports = function (grunt, options) {
     return {
         tests: [
             'tmp',
+
             // default folder
             'phoneGapProject',
+
             // settings folder
             'newapp',
+
             // default folder
             'phoneGapProject',
+
             // settings folder
             'myyApp'
         ]

@@ -1,6 +1,6 @@
 /* jshint strict: false */
 /* jslint node: true */
-'use strict';
+"use strict";
 
 /*
  * grunt-phonegap-project
@@ -9,9 +9,18 @@
  * Copyright (c) 2014 Sven Lang
  * Licensed under the MIT license.
  */
+if (!module) {
+    var module;
+}
 
-// TODO : check can lodash inside gruntModule
+/**
+ * Lodash object
+ *
+ * @attribute _
+ * @private
+ */
 var _ = require('lodash');
+
 
 module.exports = function(grunt) {
 
@@ -19,14 +28,37 @@ module.exports = function(grunt) {
     // creation: http://gruntjs.com/creating-tasks
     // require('./lib/set').init(grunt);
 
-    grunt.registerMultiTask('phonegap_project', 'Build a PhoneGap application.', function() {
+    grunt.registerMultiTask('phonegap_project', 'Create a PhoneGap application.', function() {
 
-        var done = this.async(),
+        var
+            /**
+             *
+             */
+            done = this.async(),
+
+            /**
+             *
+             */
             UNDEFINED_ANDROID_MIN_SDK = -1,
+
+            /**
+             *
+             */
             UNDEFINED_ANDROID_TARGET_SDK = -1,
+
+            /**
+             *
+             */
             isAndroidPlatformAdded = false,
 
-        	// require global options
+            /**
+             * require global options
+             *
+             * @attribute options {Object}
+             * @attribute options.title {String}
+             * @attribute options.bundleId {String}
+             * @attribute options.path {String}
+             */
             options = this.options({
                 title: 'MyyApp',
                 bundleId: 'de.myylinks.myyapp',
@@ -48,11 +80,12 @@ module.exports = function(grunt) {
          */
         function getMessage(name) {
             name = _.isString(name) ? name : null;
-            var arguments_length = arguments.length,
+
+            var argumentsLength = arguments.length,
                 i = 0,
                 output,
                 message = {
-	                buildPlatform: 'Please wait, we build App Platform: {0}',
+	                buildPlatform: 'Please wait, build App Platform: {0}',
 	                pathNoExists: 'The path no exists: {0}',
 	                fileNoExists: 'The file no exists: {0}',
 	                valueDeleteOptionsPathError: 'Check Variable "deleteOptionsPath"'
@@ -60,9 +93,11 @@ module.exports = function(grunt) {
 
             output = message[name] || name;
 
-            if (arguments_length > 1) {
-                for (i; i < arguments_length; i++) {
-                    output = output.replace(i - 1, arguments[i]);
+            if (argumentsLength > 1) {
+                for (i; i < argumentsLength; i++) {
+                    if (_.isString(arguments[i])) {
+                        output = output.replace((i - 1).toString(), arguments[i]);
+                    }
                 }
             }
 
@@ -80,7 +115,7 @@ module.exports = function(grunt) {
             data = _.isObject(data) ? data : {};
             data.access = _.isArray(data.access) ? data.access : [];
 
-            var file_www_config_xml = options.path + '/www/config.xml',
+            var file_www_config_xml = options.path + '/config.xml',
                 dataVersion = _.isString(options.version) && options.version.length > 0 && (options.version.match(/[\d]+\.[\d]+\.[\d]+/) || options.version.match(/[0-9]+\.[0-9]+\.[0-9]+/)) ? options.version : null,
                 minSdkExp = /<preference\ name\=\"android\-minSdkVersion\"\ value\=\"[0-9]+\" \/\>/,
                 fileSource,
@@ -94,10 +129,7 @@ module.exports = function(grunt) {
                     fileSource = grunt.file.read(file_www_config_xml);
                     grunt.file.write(
                         file_www_config_xml,
-                        fileSource.replace(
-                            /version\=\"[0-9\.]+"/,
-                            'version="' + dataVersion + '"'
-                        )
+                        fileSource.replace(/version\=\"[0-9\.]+"/, 'version="' + dataVersion + '"')
                     );
                 }
 
@@ -130,6 +162,7 @@ module.exports = function(grunt) {
                                     '<access origin="' + url + '" />'
                                 )
                             );
+
                         } else {
 
                             // create all other accesses
@@ -141,6 +174,8 @@ module.exports = function(grunt) {
                                 )
                             );
                         }
+                    } else {
+                        // todo error
                     }
                 });
 
@@ -229,6 +264,9 @@ module.exports = function(grunt) {
          * @param data {Object} The Object to create a new App
          */
         function create(data) {
+            /**
+             * TODO : check can split bundle id
+             */
             data = _.isObject(data) ? data : {};
             data.deleteOptionsPath = _.isBoolean(data.deleteOptionsPath) ? data.deleteOptionsPath : false;
             data.bundleId = _.isString(data.bundleId) && data.bundleId.length > 0 ? data.bundleId : options.bundleId;
@@ -238,8 +276,10 @@ module.exports = function(grunt) {
 
             if (data.deleteOptionsPath) {
 
-                // delete old app
+                // check if app exists
                 if (grunt.file.exists(options.path)) {
+
+                    // delete old app
                     grunt.file.delete(options.path, { force: true });
                 }
 

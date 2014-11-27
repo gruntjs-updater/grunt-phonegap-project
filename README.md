@@ -62,6 +62,11 @@ Changed in `./www/config.xml` after `task.create`.
 Type: `String`<br />
 Change the version in the config.xml
 
+#### deleteOptionsPath
+Type `Boolean`, Default: `false`<br />
+<b>Info</b>: For create a new app need a empty folder.<br />
+<b>WARNING</b>: If true they are delete folder of options.path.
+
 ## The task "create"
 [[Back To Top]](#)
 
@@ -92,14 +97,12 @@ Define the set of external domains the app is allowed to communicate with. The d
 ```
 grunt.initConfig({
   phonegap_project: {
-    options: {},
     create: {
       deleteOptionsPath: true,
       title: 'MyyApp',
       bundleId: 'de.myylinks.myyapp',
       platforms: [
         'ios',
-
         'android'
       ],
       plugins: [
@@ -122,7 +125,6 @@ Type: `Array`, Default: `[]`
 ```
 grunt.initConfig({
   phonegap_project: {
-    options: {},
     build: {
       platforms: [
         'ios',
@@ -185,34 +187,20 @@ You can find [all the changelogs here](/docs/changelogs).
 ### Latest changelog is from v0.1.4.md:
 
 ##### 2014-08-15 v0.1.4
-* update readme.md
 * update travis
 * validation options.version
+* delete variable options.copyConfigXml
 * change "cordova create" to "phonegap create"
 * update grunt-contrib-clean devDependencies
 * update package.json
 * add grunt plugin "load-grunt-config"
 * add grunt plugin "grunt-readme-generator"
-
-
-grunt-jsonlint
-grunt-contrib-watch
-
-more task for travis
-
-
-
-travis
-
-notifications:
-  email:
-    - info@weaponxi.com
-
+* update readme.md
 
 ## License
 [[Back To Top]](#)
 
-Copyright (c) 2014 Sven Lang<br />
+Copyright (c) 2014 svenlang<br />
 Licensed under the MIT license.
 
 [![docs examples](https://sourcegraph.com/api/repos/github.com/CoHyper/grunt-phonegap-project/.badges/docs-examples.png)](https://sourcegraph.com/github.com/CoHyper/grunt-phonegap-project) [![dependencies](https://sourcegraph.com/api/repos/github.com/CoHyper/grunt-phonegap-project/.badges/dependencies.png)](https://sourcegraph.com/github.com/CoHyper/grunt-phonegap-project) [![status](https://sourcegraph.com/api/repos/github.com/CoHyper/grunt-phonegap-project/.badges/status.png)](https://sourcegraph.com/github.com/CoHyper/grunt-phonegap-project) [![funcs](https://sourcegraph.com/api/repos/github.com/CoHyper/grunt-phonegap-project/.badges/funcs.png)](https://sourcegraph.com/github.com/CoHyper/grunt-phonegap-project) [![top func](https://sourcegraph.com/api/repos/github.com/CoHyper/grunt-phonegap-project/.badges/top-func.png)](https://sourcegraph.com/github.com/CoHyper/grunt-phonegap-project) [![library users](https://sourcegraph.com/api/repos/github.com/CoHyper/grunt-phonegap-project/.badges/library-users.png)](https://sourcegraph.com/github.com/CoHyper/grunt-phonegap-project) [![authors](https://sourcegraph.com/api/repos/github.com/CoHyper/grunt-phonegap-project/.badges/authors.png)](https://sourcegraph.com/github.com/CoHyper/grunt-phonegap-project) [![xrefs](https://sourcegraph.com/api/repos/github.com/CoHyper/grunt-phonegap-project/.badges/xrefs.png)](https://sourcegraph.com/github.com/CoHyper/grunt-phonegap-project)

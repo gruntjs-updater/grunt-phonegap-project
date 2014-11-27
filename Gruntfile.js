@@ -16,25 +16,38 @@ module.exports = function(grunt) {
         configPath: path.join(process.cwd(), 'grunt'),
         init: true,
         data: {
+
             // need for "grunt-readme-generator"
             pkg: grunt.file.readJSON('package.json')
         },
-        loadGruntTasks: { //can optionally pass options to load-grunt-tasks.  If you set to false, it will disable auto loading tasks.
-            //pattern: 'grunt-*',
-            //config: require('./package.json'),
-            //scope: 'devDependencies'
+
+        // can optionally pass options to load-grunt-tasks.  If you set to false, it will disable auto loading tasks.
+        loadGruntTasks: {
+            // pattern: 'grunt-*',
+            // config: require('./package.json'),
+            // scope: 'devDependencies'
         }
 
-        /*,
-        postProcess: function(config) {} //can post process config object before it gets passed to grunt
-    */});
+        // can post process config object before it gets passed to grunt
+        // postProcess: function(config) {}
+    });
 
     // Actually load this plugin's task(s).
     grunt.loadTasks('tasks');
 
     // These plugins provide necessary tasks.
-    //grunt.loadNpmTasks('grunt-contrib-jshint');
-    //grunt.loadNpmTasks('grunt-contrib-clean');
+    // grunt.loadNpmTasks('grunt-contrib-jshint');
+    // grunt.loadNpmTasks('grunt-contrib-clean');
+
+
+	/*
+	todo perhaps clean with extern npm
+	
+		// These plugins provide necessary tasks.
+		grunt.loadNpmTasks('grunt-contrib-jshint');
+		grunt.loadNpmTasks('grunt-contrib-clean');
+		grunt.loadNpmTasks('grunt-contrib-nodeunit');
+	*/
 
 
     grunt.registerTask('default', [

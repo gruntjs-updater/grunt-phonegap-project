@@ -49,6 +49,7 @@ module.exports = function (grunt, options) {
         build: {
             platforms: getTaskValues("platforms")
         }
+
     };
 
 };
