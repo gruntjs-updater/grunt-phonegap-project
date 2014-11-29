@@ -77,6 +77,7 @@ module.exports = function(grunt) {
          * @private
          * @example
          *      getMessage("buildPlatform", "iOS");
+         *      // -> 'Please wait, build App Platform: {iOS}'
          */
         function getMessage(name) {
             name = _.isString(name) ? name : null;
@@ -85,10 +86,10 @@ module.exports = function(grunt) {
                 i = 0,
                 output,
                 message = {
-	                buildPlatform: 'Please wait, build App Platform: {0}',
-	                pathNoExists: 'The path no exists: {0}',
-	                fileNoExists: 'The file no exists: {0}',
-	                valueDeleteOptionsPathError: 'Check Variable "deleteOptionsPath"'
+	                buildPlatform: "Please wait, build App Platform: {0}",
+	                pathNoExists: "The path no exists: {0}",
+	                fileNoExists: "The file no exists: {0}",
+	                valueDeleteOptionsPathError: "Check Variable 'deleteOptionsPath'"
 	            };
 
             output = message[name] || name;
