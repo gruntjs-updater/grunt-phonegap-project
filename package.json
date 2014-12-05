@@ -24,7 +24,7 @@
     "node": ">= 0.11.0"
   },
   "scripts": {
-    "create": "grunt phonegap_project"
+    "create": "grunt phonegap-project"
   },
   "keywords": [
     "gruntplugin",
@@ -37,21 +37,25 @@
     "path",
     "bundleId",
     "create",
-    "build",
     "plugin",
     "platform",
     "version",
     "access",
     "domain"
   ],
-  "dependencie": {
-    "grunt": "^0.4.5",
-    "lodash": "^2.4.1"
-  },
   "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-cli": "^0.1.13",
     "grunt-contrib-clean": "^0.6.0",
     "grunt-contrib-jshint": "^0.10.0",
+    "grunt-exec": "^0.4.6",
     "grunt-readme-generator": "^0.3.41",
-    "load-grunt-config": "^0.13.0"
+    "load-grunt-config": "^0.16.0"
+  },
+  "dependencies": {
+    "cordova": "^4.1.2",
+    "lodash": "^2.4.1",
+    "phonegap": "^4.1.2-0.22.9",
+    "process": "^0.9.0"
   }
 }
