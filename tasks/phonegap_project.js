@@ -370,6 +370,8 @@ module.exports = function(grunt) {
          * @private
          */
         function addPlugins(data) {
+
+        	// todo : extern plugins need try/catch
             data = _.isArray(data) ? data : [];
 
             data.forEach(function(plugin) {
